@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Número par ou ímpar</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 6. Número Par ou Ímpar:
+Receba um número via prompt e use if/else para verificar se é par ou ímpar. -->
+
+<body>
+    <header>
+        <h1>Digite um número</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Número: <input type="number" name="num" id="campoNum">
+                <input type="button" value="Confirmar idade" onclick="verificarNum()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function verificarNum() {
+            const num = document.getElementById('campoNum');
+            const result = document.getElementById('resultado');
+
+            const numDigitado = num.value;
+
+            if (numDigitado === '') {
+                result.innerHTML = 'Digite um número no campo acima.'
+                return
+            }
+            const numInt = parseInt(numDigitado)
+            if (numInt % 2 === 0) {
+                result.innerHTML = `O número ${numInt} é par.`;
+            } else {
+                result.innerHTML = `O número ${numInt} é ímpar.`
+            }
+            
+        }
+    </script>
+
+</body>
+</html>
