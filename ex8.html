@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operador ternário</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- Operador Ternário:
+Receba um número via prompt e mostre no console:
+"Positivo" se maior que 0, "Negativo" se menor que 0, ou "Zero" caso contrário,
+usando apenas operador ternário. -->
+
+<body>
+    <header>
+        <h1>Digite um número</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Número: <input type="number" name="num" id="campoNum">
+                <input type="button" value="Confirmar número" onclick="verificarNum()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function verificarNum() {
+            const numero = document.getElementById('campoNum');
+            const result = document.getElementById('resultado');
+
+            const numDigitado = numero.value;
+
+            if (numDigitado === '') {
+                result.innerHTML = 'Digite uma número no campo acima.'
+                return
+            }
+            const num = parseFloat(numDigitado)
+            const condicao = num === 0 ? 'O número informado foi zero.' : (num < 0 ? `O número informado foi ${num}, que é negativo.` : `O número informado foi ${num}, que é positivo.`)  
+            result.innerHTML = condicao;
+        }
+    </script>
+
+</body>
+</html>
