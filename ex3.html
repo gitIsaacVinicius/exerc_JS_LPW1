@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concatenação de Strings</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+
+<!-- 3. Concatenação de Strings:
+Crie três variáveis (let nome, let sobrenome, let anoNascimento) e mostre no console a frase: "Olá, meu nome é <nome completo> e eu nasci em <anoNascimento>". 
+<nomecompleto> deve ser a concatenação de nome e sobrenome. -->
+
+<body>
+    <header>
+        <h1>Digite sua idade</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Nome: <input type="text" name="nome" id="campoNome">
+                <br>Sobrenome: <input type="text" name="sobrenome" id="campoSobrenome">
+                <br>Ano do nascimento: <input type="number" name="num" id="campoNasc" min="0">
+                <input type="button" value="Confirmar informações" onclick="verificarInfo()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function verificarInfo() {
+            const meuNome = document.getElementById('campoNome')
+            const meuSobrenome = document.getElementById('campoSobrenome')
+            const anoNasc = document.getElementById('campoNasc');
+            const result = document.getElementById('resultado');
+
+            const nomeDigitado = meuNome.value
+            const sobrenomeDigitado = meuSobrenome.value
+            const anoDigitado = anoNasc.value;
+
+            if ((anoDigitado === '') || (meuNome === '') || (meuSobrenome === '')) {
+                result.innerHTML = 'Digite as informações nos campos acima.'
+                return
+            }
+            const anoNum = parseInt(anoDigitado)  
+            result.innerHTML = 'Olá, meu nome é ' + nomeDigitado + ' ' + sobrenomeDigitado + ' e eu nasci em ' + anoNum + '.';
+        }
+    </script>
+
+</body>
+</html>
