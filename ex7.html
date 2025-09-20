@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nota do aluno</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- Nota de Aluno:
+Receba uma nota de 0 a 10.
+• >= 7: "Aprovado".
+• >= 5 e < 7: "Recuperação".
+• < 5: "Reprovado" -->
+
+<body>
+    <header>
+        <h1>Digite a nota do aluno</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Nota: <input type="number" name="num" id="campoNota" min="0" max="10">
+                <input type="button" value="Confirmar nota" onclick="verificarNota()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function verificarNota() {
+            const nota = document.getElementById('campoNota');
+            const result = document.getElementById('resultado');
+
+            const notaDigitada = nota.value;
+
+            if (notaDigitada === '') {
+                result.innerHTML = 'Digite uma nota no campo acima.'
+                return
+            }
+            const notaParaNum = parseFloat(notaDigitada)
+            if (notaParaNum >= 7){
+             result.innerHTML = `A nota do aluno foi ${notaParaNum}. Aluno aprovado.`;   
+            } else if ((notaParaNum < 7) && (notaParaNum >= 5)) {
+                result.innerHTML = `A nota do aluno foi ${notaParaNum}. Aluno em recuperação.`;
+            } else {
+                result.innerHTML = `A nota do aluno foi ${notaParaNum}. Aluno em reprovado.`
+            }
+            
+        }
+    </script>
+
+</body>
+</html>
