@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de idade</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 5. Verificação de Idade:
+Peça ao usuário (com prompt) sua idade.
+• Se for menor que 12, mostre "Criança".
+• Se estiver entre 12 e 17, mostre "Adolescente".
+• Se for maior ou igual a 18, mostre "Adulto". -->
+
+<body>
+    <header>
+        <h1>Digite sua idade</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Idade: <input type="number" name="num" id="campoIdade" min="0">
+                <input type="button" value="Confirmar idade" onclick="verificarIdade()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function verificarIdade() {
+            const minhaIdade = document.getElementById('campoIdade');
+            const result = document.getElementById('resultado');
+
+            const idadeDigitada = minhaIdade.value;
+
+            if (idadeDigitada === '') {
+                result.innerHTML = 'Digite uma idade no campo acima.'
+                return
+            }
+            const idadeNum = parseInt(idadeDigitada)
+            if (idadeNum < 12) {
+                result.innerHTML = `Idade menor que 12 anos - Criança.`
+            } else if ((idadeNum >= 12) && (idadeNum <= 17)) {
+                result.innerHTML = `Idade entre 12 e 17 anos - Adolescente.`
+            } else {
+                result.innerHTML = `Idade maior ou igual a 18 anos - Adulto.`
+
+            }
+        }
+    </script>
+
+</body>
+</html>
