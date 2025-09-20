@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabuada com for</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 9. Tabuada com for:
+Receba um número e mostre a tabuada de 1 a 10 usando for -->
+
+<body>
+    <header>
+        <h1>Tabuada</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Número: <input type="number" name="num" id="campoNumero">
+                <input type="button" value="Confirmar número" onclick="tabuada()">
+            </p>
+        </div>
+        <p id='resultado'></p>
+    </section>
+
+    <script>
+        function tabuada() {
+            const numero = document.getElementById('campoNumero');
+            const result = document.getElementById('resultado');
+
+            const numDigitado = numero.value;
+
+            if (numDigitado === '') {
+                result.innerHTML = 'Digite uma número no campo acima.'
+                return
+            }
+            const num = Number(numDigitado)
+            let txt = ''
+            for (let i = 1; i <= 10; i++){
+                const res = `${num} x ${i} = ${num * i}<br>`
+
+                txt += res
+            }  
+            result.innerHTML = txt
+        }
+    </script>
+</body>
+</html>
