@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Fila de Atendimento</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 21. Escreva um programa para controlar uma fila de atendimento, deve guardar o
+nome da pessoa ao clicar no botão "entrar na fila" e inserir no final de uma fila.
+Quando a pessoa for atendida, deve clicar no botão "atender" que vai retirar o
+nome da pessoa que está no primeiro lugar na fila. Também guarde a data e hora
+que a pessoa entrou na fila (use Date.now() para obter essa informação . Veja
+como formatar a data usando Intl.DateTimeFormat).
+Quando ela for atendida (retirada da fila), deve calcular quanto tempo levou para
+ser atendida.
+Use vetores para armazenar as informações. Para inserir no final da fila use o
+método "push()" e para remover do início da fila use o método "shift()" . Crie um
+vetor para armazenar o nome e a hora (hora, minutos e segundos) que a pessoa
+entrou na fila. Em outro vetor armazene o nome, data e hora que pessoa entrou na
+fila, data e hora que foi atendida e quanto tempo demorou para ser atendida.
+Cada vez que uma pessoa entrar na fila ou for atendida deve exibir os dados
+armazenados nos dois vetores. -->
+
+<body>
+    <header>
+        <h1>Fila de Atendimento</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Nome: <input type="text" name="nome" id="campoNome">
+                <input type="button" value="Entrar na fila" onclick="entrar()">  
+            </p>
+        </div>
+
+        <p id="mensagem"></p>
+
+        <div id="telaFila">
+            <h2>Pessoas na fila:</h2>
+            <ol id="listaFila"></ol>
+            <input type="button" value="Atender próximo" onclick="atender()">
+        </div>
+
+        <div class="painel">
+                <h2>Histórico de Atendidos</h2>
+                <p id="listaHistorico"></p>
+            </div>
+        
+    </section>
+
+    <script>
+        // Nossa fila agora vai guardar um "pacotinho" (objeto) para cada pessoa.
+        let fila = [];
+        let historico = [];
+
+        // --- Nossas "Receitas" (Funções) ---
+
+        function entrar() {
+            const nome = document.getElementById('campoNome').value;
+            const msg = document.getElementById('mensagem')
+
+            if (nome === "") {
+                msg.innerHTML = 'Digite um nome para entrar na fila de atendimento';
+                return;
+            }
+
+            // MUDANÇA 1: Criamos um "pacotinho" (objeto) para a pessoa
+            const pessoa = {
+                nome: nome,
+                hrEntrada: Date.now() // Pegamos o "carimbo" da hora atual
+            };
+
+            // Colocamos o pacotinho inteiro no fim da fila.
+            fila.push(pessoa);
+
+            nome.value = "";
+
+            mostrarFila();
+        }
+
+        function atender() {
+            const msg = document.getElementById('mensagem')
+
+            if (fila.length === 0) {
+                msg.innerHTML = "Não há ninguém na fila para atender"
+                return;
+            }
+
+            // O .shift() agora tira o "pacotinho" inteiro da pessoa do começo da fila.
+            const pessoaAtendida = fila.shift();
+            
+            const hrSaida = Date.now()
+
+            const tempoEmMs = hrSaida - pessoaAtendida.hrEntrada; // Diferença em milissegundos
+            const totalSegundos = Math.floor(tempoEmMs / 1000); // Converte para segundos
+            const minutos = Math.floor(totalSegundos / 60); // Converte os minutos
+            const segundos = totalSegundos % 60; // Converte os segundos que "sobraram"
+            const tempoDeEspera = `${minutos}min ${segundos}s`;
+
+            // Criamos a ficha completa para o histórico
+            const registro = {
+                nome: pessoaAtendida.nome,
+                entrada: pessoaAtendida.hrEntrada,
+                saida: hrSaida,
+                espera: tempoDeEspera
+            };
+
+            // Colocamos a ficha no nosso Vetor 2 (o histórico)
+            historico.push(registro);
+            
+            mostrarFila();
+        }
+
+        function mostrarFila() {
+            const lista = document.getElementById('listaFila');
+            const resultHistorico = document.getElementById('listaHistorico');
+            lista.innerHTML = "";
+
+            if (fila.length === 0) {
+                lista.innerHTML = "A fila está vazia";
+            }
+
+            const formatarHr = new Intl.DateTimeFormat('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            for (const pessoa of fila) {
+                // Usamos o "tradutor" para formatar o "carimbo" da hora
+                const hrFormatada = formatarHr.format(pessoa.hrEntrada);
+
+                // Montamos o texto com o nome e a hora de entrada formatada
+                lista.innerHTML += `<li>${pessoa.nome} <small>- Entrou às: ${hrFormatada}</small></li>`;
+            }
+
+            resultHistorico.innerHTML = "";
+            for (const registro of historico) {
+                const entradaF = formatarHr.format(registro.entrada);
+                const saidaF = formatarHr.format(registro.saida);
+
+                // Cria uma linha na tabela para cada pessoa atendida
+                resultHistorico.innerHTML += `${registro.nome} chegou às ${entradaF}, esperou ${registro.espera} e saiu às ${saidaF}.<br>`;
+            }
+        }
+        // Chamamos a função no início para mostrar a fila vazia.
+        mostrarFila();
+    </script>
+
+</body>
+</html>
