@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criação de Objeto</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 13. Criação de Objeto:
+Crie um objeto carro com propriedades marca, modelo e ano. Mostre todas as
+propriedades no console, usando uma instrução console.log para cada uma das
+propriedades. -->
+
+<body>
+    <header>
+        <h1>Digite as informações</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Marca: <input type="text" name="marca" id="campoMarca"><br>
+                Modelo: <input type="text" name="modelo" id="campoModelo"><br>
+                Ano: <input type="number" name="num" id="campoAno" min="0"><br>
+                
+                <input type="button" value="Confirmar informações" onclick="verificarInfo()">
+            </p>
+        </div>
+        <p id='descricaoCompleta'></p>
+    </section>
+
+    <script>
+        function verificarInfo() {
+            let marcaCarro = document.getElementById('campoMarca');
+            let modeloCarro = document.getElementById('campoModelo')
+            let anoCarro = document.getElementById('campoAno')
+            const resultado = document.getElementById('descricaoCompleta')
+
+            const marcaDigitada = marcaCarro.value
+            const modeloDigitado = modeloCarro.value
+            const anoDigitado = Number(anoCarro.value)
+
+
+            if ((marcaDigitada === '') || (modeloDigitado === '') || (anoDigitado === '')){
+                resultado.innerHTML = 'Digite as informações nos campos acima.'
+                return
+            }
+            
+            let carro = {
+                marca: marcaDigitada,
+                modelo: modeloDigitado,
+                ano: anoDigitado,
+                descricao: function() {
+                    return `Marca: ${carro.marca}, Modelo: ${carro.modelo}, Ano: ${carro.ano}`
+                }
+            }  
+
+            resultado.innerHTML = carro.descricao()
+        }
+    </script>
+
+</body>
+</html>
