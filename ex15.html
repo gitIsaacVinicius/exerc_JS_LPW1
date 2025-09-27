@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manipulação de Propriedades</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<!-- 15. Manipulação de Propriedades:
+Crie um objeto livro com título e autor.
+• Adicione dinamicamente a propriedade ano.
+• Altere o título.
+• Exclua a propriedade autor.
+• Mostre o objeto atualizado no console. -->
+
+<body>
+    <header>
+        <h1>Digite as informações</h1>
+    </header>
+    
+
+    <section>
+        <div>
+            <p>
+                Título: <input type="text" name="marca" id="campoTitulo"><br>
+                Autor: <input type="text" name="modelo" id="campoAutor"><br>
+                Ano: <input type="number" name="num" id="campoAno" min="0"><br>
+                
+                <input type="button" value="Confirmar informações" onclick="verificarInfo()">
+            </p>
+        </div>
+        <p id='resultadoComAutor'></p>
+        <p id='resultadoSemAutor'></p>
+    </section>
+
+    <script>
+        function verificarInfo() {
+            let tituloLivro = document.getElementById('campoTitulo').value
+            let autorLivro = document.getElementById('campoAutor').value
+            let anoLivro = document.getElementById('campoAno')
+            const result = document.getElementById('resultadoComAutor')
+            const result2 = document.getElementById('resultadoSemAutor')
+
+            const anoDigitado = anoLivro.value
+
+            if ((tituloLivro === '') || (autorLivro === '') || (anoDigitado === '')){
+                result.innerHTML = 'Digite as informações nos campos acima.'
+                return
+            }
+            
+            const livroComAutor = {
+                titulo: tituloLivro,
+                autor: autorLivro,
+                ano: anoDigitado
+            }  
+
+            const livroSemAutor = {...livroComAutor}
+            delete livroSemAutor.autor
+            
+            result.innerHTML = `O livro ${livroComAutor.titulo} do autor ${livroComAutor.autor} foi escrito no ano ${livroComAutor.ano}.`;
+
+            result2.innerHTML = `O livro ${livroSemAutor.titulo} foi escrito no ano ${livroSemAutor.ano}.`
+            
+        }
+    </script>
+
+</body>
+</html>
